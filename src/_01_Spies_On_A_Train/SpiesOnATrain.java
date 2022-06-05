@@ -22,8 +22,54 @@ public class SpiesOnATrain {
      * statements.
      */
     String findIntel(LinkedList<TrainCar> train, String[] clues) {
-
-        return "";
+    	Node<TrainCar> next = train.getHead();
+    	HashMap<String, Integer> suspects = new HashMap<String, Integer>();
+    	
+    	while(next != null) {
+    		String questioning = next.getValue().questionPassenger();
+    		String evidence = "";
+    		String suspect = "";
+    		if(questioning.contains("eating")) {
+    			int indexFirst = questioning.indexOf("saw") + 4;
+    			int indexLast = questioning.indexOf("eating");
+    			evidence = questioning.substring(indexLast, questioning.length()-1);
+    			suspect = questioning.substring(indexFirst, indexLast-1);
+    		}
+    		else if(questioning.contains("speaking")) {
+    			int indexFirst = questioning.indexOf("saw") + 4;
+    			int indexLast = questioning.indexOf("speaking");
+    			evidence = questioning.substring(indexLast, questioning.length()-1);
+    			suspect = questioning.substring(indexFirst, indexLast-1);
+    		}
+    		else if(questioning.contains("carrying")) {
+    			int indexFirst = questioning.indexOf("saw") + 4;
+    			int indexLast = questioning.indexOf("carrying");
+    			evidence = questioning.substring(indexLast, questioning.length()-1);
+    			suspect = questioning.substring(indexFirst, indexLast-1);
+    		}
+    		
+    		for(String clue : clues) {
+    			if(evidence.equals(clue)) {
+    				if(suspects.containsKey(suspect)) {
+    					suspects.put(suspect, suspects.get(suspect) + 1);
+    				}
+    				else { 
+    					suspects.put(suspect, 1);
+    				}
+    			}
+    		}
+    		
+    		next = next.getNext();
+    	}
+    	int max = 0;
+    	String spy = "";
+    	for(String i : suspects.keySet()) {
+    		if(suspects.get(i) > max) {
+    			max = suspects.get(i);
+    			spy = i;
+    		}
+    	}
+        return spy;
 
     }
 

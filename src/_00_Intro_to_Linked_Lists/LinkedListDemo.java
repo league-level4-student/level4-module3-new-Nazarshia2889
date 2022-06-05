@@ -31,6 +31,26 @@ public class LinkedListDemo {
          * String nodes.
          * 
          */
+    	
+    	LinkedList<Integer> ll = new LinkedList<Integer>();
+    	
+    	ll.add(1);
+    	ll.add(2);
+    	System.out.println(ll.getHead());
+    	System.out.println(ll.getTail());
+    	ll.print();
+    	
+    	Node<Integer> head = ll.getHead();
+    	Node<Integer> tail = ll.getTail();
+    	
+    	Node<Integer> next = head;
+    	
+    	while(next != null) {
+    		next.setValue(next.getValue() * 2);
+    		next = next.getNext();
+    	}
+    	
+    	ll.print();
 
     }
 
