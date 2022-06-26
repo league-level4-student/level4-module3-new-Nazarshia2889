@@ -33,7 +33,34 @@ public class BinaryTreeDemo {
      */
 
     public static void main(String[] args) {
-
+    	BinaryTree<Integer> bt = new BinaryTree<Integer>();
+    	bt.insert(3);
+    	bt.insert(2);
+    	bt.insert(5);
+    	bt.insert(1);
+    	bt.insert(7);
+    	bt.insert(4);
+    	bt.search(1);
+    	System.out.println(bt.getRoot().getValue());
+    	System.out.println(bt.findSmallestNode(bt.getRoot()).getValue());
+    	bt.printVertical();
+    	Node<Integer> curr = bt.getRoot();
+    	int k = 2;
+    	multiplyByK(curr, k);
+    	bt.printVertical();
+//    	while(curr != null) {
+//    		curr.setValue(curr.getValue() * 2);
+//    		curr = curr.getLeft();
+//    	}
+    	
+    	
     }
+    static void multiplyByK(Node<Integer> root, int k) {
+    	if(root != null) {
+    		root.setValue(root.getValue() * k);
+    		multiplyByK(root.getLeft(), k);
+    		multiplyByK(root.getRight(), k);
+    	}
+	}
 
 }
