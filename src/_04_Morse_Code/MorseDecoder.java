@@ -1,6 +1,9 @@
 package _04_Morse_Code;
 
+import java.util.Scanner;
+
 import _03_Intro_to_Binary_Trees.BinaryTree;
+import _03_Intro_to_Binary_Trees.Node;
 
 public class MorseDecoder {
 
@@ -10,7 +13,20 @@ public class MorseDecoder {
 
         MorseDecoder md = new MorseDecoder();
         md.initialize();
-        md.decode();
+//        md.decode();
+        
+        Scanner scanner = new Scanner(System.in);
+        String keepPlaying;
+        
+        do {
+	        System.out.println("Enter your message in morse code: ");
+	        String coded = scanner.nextLine();
+	        md.decode(coded);
+	        
+	        System.out.println("Would you like to keep playing (y/n)?");
+	        keepPlaying = scanner.nextLine();
+        } while(keepPlaying.equals("y"));
+        scanner.close();
 
     }
 
@@ -63,8 +79,20 @@ public class MorseDecoder {
      * english alphabet.
      * 
      */
-    void decode() {
-        String morseCode = "-.-- --- ..- .- .-. . .- -- .- --.. .. -. --.";
+    void decode(String morseCode) {
+//        String morseCode = "-.-- --- ..- .- .-. . .- -- .- --.. .. -. --.";
+        
+        String[] splitted = morseCode.split(" ");
+        String result = "";
+        		
+        for(String code : splitted) {
+        	String decoded = mcTree.search(new MorseCode(code)).getValue().getDecoded();
+        	result += decoded + " ";
+        }
+        
+        
+        System.out.println(result.substring(0, result.length()-1));
     }
+    
 
 }
